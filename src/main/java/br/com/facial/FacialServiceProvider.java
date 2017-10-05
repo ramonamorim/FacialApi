@@ -1,24 +1,27 @@
 package br.com.facial;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.inject.Inject;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 @Provider
-@Produces(MediaType.APPLICATION_JSON)
+@Component
 public class FacialServiceProvider implements ContextResolver<ObjectMapper> {
 
+	@Inject
 	private ObjectMapper objectMapper;
 
 	public FacialServiceProvider() {
-        Hibernate4Module hibernate4Module = new Hibernate4Module();
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(hibernate4Module);
-    }
+		Hibernate5Module hibernate5Module = new Hibernate5Module();
+		objectMapper = new ObjectMapper();
+
+		objectMapper.registerModule(hibernate5Module);
+	}
 
 	@Override
 	public ObjectMapper getContext(Class<?> objectType) {
