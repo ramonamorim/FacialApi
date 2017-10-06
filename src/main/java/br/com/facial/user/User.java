@@ -1,5 +1,6 @@
 package br.com.facial.user;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -26,13 +27,13 @@ public class User extends BaseEntity {
 
 	private static final long serialVersionUID = -3528892441811886364L;
 
-	@NotNull
+	@Nullable
 	private String name;
 
 	@NotNull
 	private String username;
 
-	@NotNull
+	@Nullable
 	private String email;
 
 	@NotNull
