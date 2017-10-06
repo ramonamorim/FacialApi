@@ -1,24 +1,51 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+# Logs data
+logs
+npm-debug.log*
+*.log
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-nbproject/private/
+# Android settings
+gen/
 build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
+proguard/
+captures/
+local.properties
+.gradle/
+.navigation/
+*.apk
+*.ap_
+*.dex
+
+
+# Eclipse settings
+bin/
+.settings/
+.metadata/
+.project
+.classpath
+.externalToolBuilders
+.tern-project
+.sonar
+.jasper
+.pmd
+.nbactions.xml
+
+# Java settings
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven settings
+target/
+.mvn/timing.properties
+
+# Node settings
+build/Release
+node_modules/
+bower_components/
+lib-cov
+coverage
+.grunt
+.lock-wscript
+.npm
+.node_repl_history
