@@ -3,6 +3,8 @@ logs
 npm-debug.log*
 *.log
 
+.DS_Store
+
 # Android settings
 gen/
 build/
@@ -29,6 +31,7 @@ bin/
 .pmd
 .nbactions.xml
 
+
 # Java settings
 *.class
 *.jar
@@ -38,6 +41,8 @@ bin/
 # Maven settings
 target/
 .mvn/timing.properties
+mvnw.cmd
+mvnw
 
 # Node settings
 build/Release
