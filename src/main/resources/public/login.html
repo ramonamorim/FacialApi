@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>Facial App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="resources/css/login.css" rel="stylesheet">
+</head>
+<body>
+	<div class="login-page">
+		<div class="form">
+			<!--  
+			<form class="register-form">
+				<input type="text" placeholder="Nome" />
+				<input type="text" placeholder="Login" /> <input type="password"
+					placeholder="Senha" /> <input type="text"
+					placeholder="Email" />
+				<button>Criar</button>
+				<p class="message">
+					Já é registrado? <a href="#">Entrar</a>
+				</p>
+			</form>
+			 -->
+			<form class="login-form">
+				<input id="username" type="text" placeholder="Login" /> <input
+					id="password" type="password" placeholder="Senha" />
+				<button id="login">Entrar</button>
+				<!--  	
+				<p class="message">
+					Não é registrado? <a href="#">Criar uma conta</a>
+				</p>
+				 -->
+			</form>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/js/app.js"></script>
+	<script type="text/javascript">
+	 	$('#username').focus();
+		$('.message a').click(function() {
+			$('form').animate({
+				height : "toggle",
+				opacity : "toggle"
+			}, "slow");
+		});
+
+		$('#login').click(function() {
+			var user = $('#username').val();
+			var password = $('#password').val();
+			var auth = {
+				username : user,
+				password : password
+			};
+
+			$.ajax({
+				method : 'POST',
+				url : '/login',
+				data : JSON.stringify(auth),
+				contentType : "application/json; charset=utf-8",
+
+				success : function(data, textStatus, jqXHR) {
+					setAuthCookie(jqXHR.getResponseHeader('Authorization'), 10);					
+					location = '/index.html'
+					console.log('sucess');
+				},
+				error : function(err) {
+					alert('Usuário ou senha inválidos')
+				}
+			});
+			return false;
+		})
+	</script>
+</body>
+</html>

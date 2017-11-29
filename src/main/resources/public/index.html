@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>Facial App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="resources/css/bootstrap.css" />
+<body>
+
+	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+		<button class="navbar-toggler navbar-toggler-right" type="button"
+			data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">Facial App</a>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Pessoas
+						<span class="sr-only">(atual)</span>
+				</a></li>
+				<li class="nav-item"><a id="logout" class="nav-link" href="#">Sair</a>
+				</li>
+			</ul>
+
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-9 pull-md-3 bd-content">
+				<h3>Pessoas</h3>
+				
+				<table id="personTable" class="table table-bordered table-striped" data-bind="visible: loadComplete">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nome</th>
+							<th>Sobrenome</th>
+							<th>Fone</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-bind="foreach: list">
+							<th scope="row">1</th>
+							<td data-bind="text: name"></td>
+							<td data-bind="text: lastName"></td>
+							<td data-bind="text: phone"></td>
+							<td data-bind="text: id"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!--
+	<hr />
+	<div class="container-contact">
+		<form id="contact" action="" method="post">
+			<h3>Colorlib Contact Form</h3>
+			<h4>Contact us for custom quote</h4>
+			<fieldset>
+				<input placeholder="Your name" type="text" tabindex="1" required
+					autofocus>
+			</fieldset>
+			<fieldset>
+				<input placeholder="Your Email Address" type="email" tabindex="2"
+					required>
+			</fieldset>
+			<fieldset>
+				<input placeholder="Your Phone Number (optional)" type="tel"
+					tabindex="3" required>
+			</fieldset>
+			<fieldset>
+				<input placeholder="Your Web Site (optional)" type="url"
+					tabindex="4" required>
+			</fieldset>
+			<fieldset>
+				<textarea placeholder="Type your message here...." tabindex="5"
+					required></textarea>
+			</fieldset>
+			<fieldset>
+				<button name="submit" type="submit" id="contact-submit"
+					data-submit="...Sending">Submit</button>
+			</fieldset>
+			<p class="copyright">
+				Designed by <a href="https://colorlib.com" target="_blank"
+					title="Colorlib">Colorlib</a>
+			</p>
+		</form>
+		-->
+	</div>
+
+	<script src="resources/js/jquery-3.1.1.min.js"></script>
+	<script src="resources/js/tether.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/knockout-min.js"></script>
+
+	<script type="text/javascript" src="resources/js/app.js"></script>
+	<script type="text/javascript">
+		if (!checkAuthCookie()) {
+			location.href = "/login.html";
+		}
+		$('#logout').click(function() {
+			deleteAuthCookie();
+			location.reload();
+		})
+	</script>
+	<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>

@@ -38,8 +38,11 @@ public class FacialSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/home").permitAll()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/login*").permitAll()
+                .antMatchers("/index*").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().authenticated().and()
-
+				//.formLogin().loginPage("/login.html").and()
 				// filtra login
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 						UsernamePasswordAuthenticationFilter.class)
