@@ -42,7 +42,7 @@ public class FacialApplicationStartup implements ApplicationListener<Application
         Person person = personRepo.findByName("Joao");
         
         if (person == null) {
-            personRepo.save(Person.builder().name("Joao").lastName("da Silva").phone("47 1234-4567").build());            
+            personRepo.save(Person.builder().name("Joao").lastName("da Silva").email("joao.silva@gmail.com").phone("47 1234-4567").build());            
         }
         
     }

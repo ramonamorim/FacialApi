@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,20 +25,21 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "PHOTO")
 public class Photo extends BaseEntity {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7373247078638272941L;
-
-	private byte[] image;
-
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PERSON")
-	private Person person;
-
-	@Nullable
-	private String description;
-
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7373247078638272941L;
+    
+    @Lob
+    private byte[] image;
+    
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_PERSON")
+    private Person person;
+    
+    @Nullable
+    private String description;
+    
 }

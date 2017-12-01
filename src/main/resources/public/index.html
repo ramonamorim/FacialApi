@@ -5,12 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
+
+<link href="resources/css/iconic/css/open-iconic.css" rel="stylesheet">
+<link href="resources/css/iconic/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+<link rel="stylesheet" href="resources/css/site.css" />
+
+
+
+<script type="text/javascript" src="resources/js/app.js"></script>
+<script type="text/javascript">
+	if (!checkAuthCookie()) {
+		location.href = "/login.html";
+	}
+</script>
 <body>
 
 	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-		<button class="navbar-toggler navbar-toggler-right" type="button"
-			data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -18,98 +30,119 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Pessoas
-						<span class="sr-only">(atual)</span>
+				<li class="nav-item active"><a class="nav-link" href="#">Pessoas <span class="sr-only">(atual)</span>
 				</a></li>
-				<li class="nav-item"><a id="logout" class="nav-link" href="#">Sair</a>
-				</li>
+				<li class="nav-item"><a id="logout" class="nav-link" href="#">Sair</a></li>
 			</ul>
 
 		</div>
 	</nav>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h3>Pessoas</h3>
-				
-				<table id="personTable" class="table table-bordered table-striped" data-bind="visible: loadComplete">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Nome</th>
-							<th>Sobrenome</th>
-							<th>Fone</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody data-bind="foreach: list">
-						<tr>
-							<th scope="row">1</th>
-							<td data-bind="text: name"></td>
-							<td data-bind="text: lastName"></td>
-							<td data-bind="text: phone"></td>
-							<td data-bind="text: id"></td>
-						</tr>
-					</tbody>
-				</table>
+	<div class="page-content">
+		<div class="container">
+			<div class="row" data-bind="visible: !isEditMode()">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-12">
+							<h3>
+								Pessoas <a href="#" class="btn btn-link float-right" data-bind="click: addPerson">Adicionar</a>
+							</h3>
+						</div>
+					</div>
+
+					<table id="personTable" class="table table-bordered table-striped" data-bind="visible: loadComplete">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+								<th>Nome</th>
+								<th>Sobrenome</th>
+								<th>Email</th>
+								<th>Fone</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: list">
+							<tr>
+								<th class="text-center" scope="row"><a href="" data-bind="click: $parent.editPerson"><i class="oi oi-pencil"></i></th>
+								<td data-bind="text: name"></td>
+								<td data-bind="text: lastName"></td>
+								<td data-bind="text: email"></td>
+								<td data-bind="text: phone"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-	</div>
-	<!--
+
+			<div class="row" data-bind="visible: isEditMode()" style="display: none">
+				<div class="col-6">
+					<h3 data-bind="text: isUpdate() ? 'Alteração de pessoa' : 'Inclusão de pessoa'"></h3>
+					<form>
+						<div class="form-group">
+							<label for="nome">Nome</label> <input type="text" class="form-control" id="nome" placeholder="Nome" data-bind="value: selectedPerson().name, hasFocus: isEditMode()">
+						</div>
+						<div class="form-group">
+							<label for="sobrenome">Sobrenome</label> <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" data-bind="value: selectedPerson().lastName">
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<div class="input-group mb-2 mb-sm-0">
+								<div class="input-group-addon">@</div>
+								<input type="email" class="form-control" id="email" placeholder="Email" data-bind="value: selectedPerson().email">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="fone">Fone</label>
+							<div class="input-group mb-2 mb-sm-0">
+								<div class="input-group-addon">
+									<i class="oi oi-phone"></i>
+								</div>
+								<input type="text" class="form-control" id="fone" placeholder="Fone" data-bind="value: selectedPerson().phone">
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary" data-bind="click: savePerson">Salvar</button>
+						<button type="button" class="btn btn-secondary" data-bind="click: cancelEdit">Cancelar</button>
+					</form>
+				</div>
+				<div class="col-6" data-bind="visible: isUpdate()">
+					<h3>Fotos</h3>
+					<form>
+						<div class="form-group">
+							<label for="nome">Adicionar foto</label> <input type="file" class="form-control" id="foto" placeholder="Adicionar foto" accept=".jpg,.jpeg"
+								data-bind="event: { change: function() { readPhoto($element.files[0]) } }">
+						</div>
+					</form>
+					<hr />
+					
+					<!-- ko foreach: photos -->
+					<img data-bind="attr: {'src' : encodedImage }" class="img-thumbnail" alt="Photo">
+					<!-- /ko -->
+
+				</div>
+			</div>
+
+			<!--
 	<hr />
-	<div class="container-contact">
-		<form id="contact" action="" method="post">
-			<h3>Colorlib Contact Form</h3>
-			<h4>Contact us for custom quote</h4>
-			<fieldset>
-				<input placeholder="Your name" type="text" tabindex="1" required
-					autofocus>
-			</fieldset>
-			<fieldset>
-				<input placeholder="Your Email Address" type="email" tabindex="2"
-					required>
-			</fieldset>
-			<fieldset>
-				<input placeholder="Your Phone Number (optional)" type="tel"
-					tabindex="3" required>
-			</fieldset>
-			<fieldset>
-				<input placeholder="Your Web Site (optional)" type="url"
-					tabindex="4" required>
-			</fieldset>
-			<fieldset>
-				<textarea placeholder="Type your message here...." tabindex="5"
-					required></textarea>
-			</fieldset>
-			<fieldset>
-				<button name="submit" type="submit" id="contact-submit"
-					data-submit="...Sending">Submit</button>
-			</fieldset>
-			<p class="copyright">
-				Designed by <a href="https://colorlib.com" target="_blank"
-					title="Colorlib">Colorlib</a>
-			</p>
-		</form>
+	
 		-->
-	</div>
+		</div>
 
-	<script src="resources/js/jquery-3.1.1.min.js"></script>
-	<script src="resources/js/tether.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
-	<script src="resources/js/knockout-min.js"></script>
+		<script src="resources/js/jquery-3.1.1.min.js"></script>
+		<script src="resources/js/tether.min.js"></script>
+		<script src="resources/js/bootstrap.min.js"></script>
+		<!-- 		<script src="resources/js/jquery.mask.min.js"></script> -->
 
-	<script type="text/javascript" src="resources/js/app.js"></script>
-	<script type="text/javascript">
-		if (!checkAuthCookie()) {
-			location.href = "/login.html";
-		}
-		$('#logout').click(function() {
-			deleteAuthCookie();
-			location.reload();
-		})
-	</script>
-	<script type="text/javascript" src="index.js"></script>
+		<script type="text/javascript">
+			$('#logout').click(function() {
+				deleteAuthCookie();
+				location.reload();
+			})
 
+			// 			$(document).ready(function(){
+			// 				 $('.phone').mask('(00) 00000-0000');
+			// 			});
+		</script>
+		<script src="resources/js/knockout-min.js"></script>
+		<script type="text/javascript" src="index.js"></script>
 </body>
 </html>

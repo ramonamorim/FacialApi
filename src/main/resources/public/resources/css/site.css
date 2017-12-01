@@ -1,0 +1,35 @@
+.page-content {
+	margin-top: 15px;
+}
+
+.img-thumbnail {
+	width: 80px;
+	max-height: 80px;
+}
+
+.image-thumb { 
+    position: relative; 
+
+    width:  100px;
+    height: 100px; 
+
+    background-image: url(image_thumb.jpg); 
+}
+
+.image-fav { 
+    position: absolute; 
+
+    top:    0px; 
+    left:   0px; 
+    width:  20px;
+    height: 20px;
+
+    background-image: url(fav_icon.png); 
+    background-position: bottom left; 
+
+    display: none;
+}   
+
+.image-fav:hover {
+    display: block;
+}

@@ -1,6 +1,8 @@
 package br.com.facial;
 
 import javax.inject.Inject;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 @Provider
 @Component
+@Produces(MediaType.APPLICATION_JSON)
 public class FacialServiceProvider implements ContextResolver<ObjectMapper> {
 
 	@Inject
