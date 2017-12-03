@@ -78,6 +78,15 @@
 
 		};
 
+		self.startTrain = function() {			
+			self.selectedPerson({});
+			self.isEditMode(false);
+
+			console.log('entrou na funcao de iniciar treino')			
+			App.get('api/recognitionconfig/preparation/');			
+
+		};
+
 		self.cancelEdit = function() {
 			self.selectedPerson({});
 			self.isEditMode(false);
