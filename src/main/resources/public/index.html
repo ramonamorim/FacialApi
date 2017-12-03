@@ -26,11 +26,15 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<a class="navbar-brand" href="#">Facial App</a>
+		<a class="navbar-brand" href="#" data-bind="click: cancelEdit">Facial App</a>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Pessoas <span class="sr-only">(atual)</span>
+				<li class="nav-item active"><a class="nav-link" href="#" data-bind="click: cancelEdit">Pessoas <span class="sr-only">(atual)</span>
+				</a></li>
+				<li class="nav-item active"><a class="nav-link" href="#" data-bind="click: cancelEdit">Atualizar Reconhecimento<span class="sr-only">(atual)</span>
+				</a></li>
+				<li class="nav-item active"><a class="nav-link" href="#" data-bind="click: cancelEdit">Verificar status<span class="sr-only">(atual)</span>
 				</a></li>
 				<li class="nav-item"><a id="logout" class="nav-link" href="#">Sair</a></li>
 			</ul>
@@ -62,7 +66,10 @@
 						</thead>
 						<tbody data-bind="foreach: list">
 							<tr>
-								<th class="text-center" scope="row"><a href="" data-bind="click: $parent.editPerson"><i class="oi oi-pencil"></i></th>
+								<th class="text-center" scope="row">
+								<a href="" data-bind="click: $parent.editPerson"><i class="oi oi-pencil"></i>
+								<a href="" data-bind="click: $parent.deletePerson"><i class="oi oi-circle-x"></i>
+								</th>
 								<td data-bind="text: name"></td>
 								<td data-bind="text: lastName"></td>
 								<td data-bind="text: email"></td>

@@ -2,6 +2,7 @@ package br.com.facial.person;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -46,7 +47,7 @@ public class Person extends BaseEntity {
     private String phone;
     
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade=CascadeType.ALL)
     private List<Photo> photos;
     
 }

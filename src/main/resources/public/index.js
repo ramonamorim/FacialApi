@@ -66,6 +66,14 @@
 			App.get('api/photos/person/' + item.id()).then(success, self.showError);
 
 		};
+		
+		self.deletePerson = function(item) {			
+			
+			self.selectedPerson(item);
+			console.log('entrou no delete')			
+			App.delete('api/persons/' + item.id());
+
+		};
 
 		self.cancelEdit = function() {
 			self.selectedPerson({});
@@ -119,6 +127,7 @@
 			var success = function() {
 				self.photos.push(new Photo({image : encodedImage}));
 			};
+			console.log(self.selectedPerson().id())
 			App.post('api/photos', photo).then(success, self.showError);
 		}
 

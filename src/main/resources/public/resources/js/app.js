@@ -63,5 +63,18 @@ var App = {
 						+ getCookie('FacialSecurity')
 			}
 		});
+	},
+	delete : function(url, data) {
+		return $.ajax({
+			method : 'DELETE',
+			url : url,
+			dataType : "json",
+			data: JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			headers : {
+				'Authorization' : 'FacialSecurity='
+						+ getCookie('FacialSecurity')
+			}
+		});
 	}
 }
