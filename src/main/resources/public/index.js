@@ -70,8 +70,11 @@
 		self.deletePerson = function(item) {			
 			
 			self.selectedPerson(item);
+			
 			console.log('entrou no delete')			
 			App.delete('api/persons/' + item.id());
+			self.load();
+
 
 		};
 

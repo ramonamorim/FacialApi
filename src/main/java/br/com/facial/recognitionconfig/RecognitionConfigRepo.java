@@ -4,4 +4,6 @@ import br.com.facial.persistence.BaseRepo;
 
 public interface RecognitionConfigRepo extends BaseRepo<RecognitionConfig> {
 
+	RecognitionConfig findByDescription(String description);
+
 }
