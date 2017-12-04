@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -32,9 +33,11 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 	}
 
 	@GET
+	@Transactional
 	@Path("preparation")
 	private Response prepareAndRunTrain() throws IOException {
 		this.prepareDataOnFolder();
+//		ProcessBuilder builder = new ProcessBuilder();
 
 		return Response.ok().build();
 
