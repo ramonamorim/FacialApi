@@ -39,6 +39,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-undertow</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>io.undertow</groupId>
+					<artifactId>undertow-websockets-jsr</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -100,7 +106,7 @@
   			<groupId>com.h2database</groupId>
   			<artifactId>h2</artifactId>
   			<scope>runtime</scope>
- 			<version>${h2.version}</version>
+ 			<version>${h2.version}</version> <!--$NO-MVN-MAN-VER$-->
   		</dependency>
 
 		<dependency>
