@@ -3,11 +3,16 @@ package br.com.facial.recognitionconfig;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.springframework.stereotype.Component;
@@ -35,12 +40,53 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 	@GET
 	@Transactional
 	@Path("preparation")
-	private Response prepareAndRunTrain() throws IOException {
-		this.prepareDataOnFolder();
-//		ProcessBuilder builder = new ProcessBuilder();
+	public Response prepareAndRunTrain() throws IOException, InterruptedException {
+		/// this.prepareDataOnFolder();
+		Process p = Runtime.getRuntime().exec(new String[] { "python", "lol.py" }, null, new File("F:/python/flask2"));
+
+		p.waitFor(30, TimeUnit.SECONDS);
+		if (p.isAlive()) {
+			p.destroyForcibly();
+		} else {
+			System.out.println(p.exitValue());
+		}
 
 		return Response.ok().build();
 
+	}
+
+	@GET
+	@Path("statuscomplete")
+	public Response updateStatusComplete()  {
+		List<RecognitionConfig> listConfig = this.recognitionConfigRepo.findAll();
+
+		if (!listConfig.isEmpty()) {
+			RecognitionConfig recognitionConfig = listConfig.get(0);
+			System.out.println(recognitionConfig.getCodeStatus());
+			recognitionConfig.setCodeStatus("1");
+			
+			this.recognitionConfigRepo.saveAndFlush(recognitionConfig);
+			System.out.println(recognitionConfig.getCodeStatus());
+		}
+
+		return Response.ok().build();
+	}
+	
+	@GET
+	@Path("statusprocessing")
+	public Response updateStatusProcessing()  {
+		List<RecognitionConfig> listConfig = this.recognitionConfigRepo.findAll();
+
+		if (!listConfig.isEmpty()) {
+			RecognitionConfig recognitionConfig = listConfig.get(0);
+			System.out.println(recognitionConfig.getCodeStatus());
+			recognitionConfig.setCodeStatus("2");
+			
+			this.recognitionConfigRepo.saveAndFlush(recognitionConfig);
+			System.out.println(recognitionConfig.getCodeStatus());
+		}
+
+		return Response.ok().build();
 	}
 
 	private void prepareDataOnFolder() throws IOException {

@@ -122,7 +122,9 @@
 					<hr />
 					
 					<!-- ko foreach: photos -->
-					<img data-bind="attr: {'src' : encodedImage }" class="img-thumbnail" alt="Photo">
+					<th class="text-center" scope="row">
+						<img data-bind="attr: {'src' : encodedImage }" class="img-thumbnail" alt="Photo"><i class="oi oi-circle-x"></i>
+					</th>
 					<!-- /ko -->
 
 				</div>

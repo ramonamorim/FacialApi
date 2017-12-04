@@ -69,11 +69,14 @@
 		
 		self.deletePerson = function(item) {			
 			
-			self.selectedPerson(item);
+			self.selectedPerson(item);			
+			var success = function() {
+				self.load();
+				
+			}
 			
-			console.log('entrou no delete')			
-			App.delete('api/persons/' + item.id());
-			self.load();
+			App.delete('api/persons/' + item.id()).then(success, self.showError);
+			
 
 
 		};
