@@ -11,11 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProcessService {
 
+	@SuppressWarnings("unused")
 	@Async
-	public CompletableFuture<Void> processTrain() throws IOException, InterruptedException {
+	public CompletableFuture<Void> processTrain(String numPersons) throws IOException, InterruptedException {
 		System.out.println("Chegou ...");
 		Process p = Runtime.getRuntime().exec(
-				new String[] { "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3", "vggpretrainedoriginal.py  5" },
+				new String[] { "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3", "vggpretrained.py", numPersons },
 				null, new File("/Users/ramonamorim/TCC/"));
 		int result = p.waitFor();
 		if (p != null) {

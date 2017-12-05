@@ -45,19 +45,24 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 	@Transactional
 	@Path("preparation")
 	public Response prepareAndRunTrain() throws IOException, InterruptedException {
+		String numPersons = "";
 		this.limpaPastas();
-		this.prepareDataOnFolder();
-		this.processService.processTrain();
+		numPersons = this.prepareDataOnFolder(numPersons);
+		process(numPersons);
 
 		return Response.ok().build();
 
+	}
+
+	private void process(String numPersons) throws IOException, InterruptedException {
+		this.processService.processTrain(numPersons);
 	}
 
 	private void limpaPastas() {
 		String directoryPath = "/Users/ramonamorim/TCC/data";
 		File file = new File("/Users/ramonamorim/TCC/data");
 		try {
-			//Deleting the directory recursively.
+			// Deleting the directory recursively.
 			delete(file);
 			System.out.println("Directory has been deleted recursively !");
 		} catch (IOException e) {
@@ -65,11 +70,11 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void delete(File file) throws IOException {
-		 
+
 		for (File childFile : file.listFiles()) {
- 
+
 			if (childFile.isDirectory()) {
 				delete(childFile);
 			} else {
@@ -78,7 +83,7 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 				}
 			}
 		}
- 
+
 		if (!file.delete()) {
 			throw new IOException();
 		}
@@ -118,12 +123,12 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 		return Response.ok().build();
 	}
 
-	private void prepareDataOnFolder() throws IOException {
+	private String prepareDataOnFolder(String value) throws IOException {
 		new File("/Users/ramonamorim/TCC/data").mkdirs();
 
 		List<Person> persons = this.personRepo.findAll();
 		// passar como parametro no sh para definir numero de classes da rede
-		int numClasses = persons.size();
+		value = String.valueOf(persons.size());
 		for (Person person : persons) {
 
 			new File("/Users/ramonamorim/TCC/data/train/" + person.getName()).mkdirs();
@@ -138,22 +143,23 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 
 				if (qtdValidation >= 0) {
 					java.nio.file.Files.write(
-							(new java.io.File("/Users/ramonamorim/TCC/data/validation/" + person.getName() +"/" + numberPhotosName + ".jpg"))
-									.toPath(),
+							(new java.io.File("/Users/ramonamorim/TCC/data/validation/" + person.getName() + "/"
+									+ numberPhotosName + ".jpg")).toPath(),
 							photo.getImage(), java.nio.file.StandardOpenOption.CREATE);
 
 					qtdValidation--;
 
 				} else {
-					java.nio.file.Files
-							.write((new java.io.File("/Users/ramonamorim/TCC/data/train/" +person.getName()+"/" + numberPhotosName + ".jpg"))
-									.toPath(), photo.getImage(), java.nio.file.StandardOpenOption.CREATE);
+					java.nio.file.Files.write(
+							(new java.io.File("/Users/ramonamorim/TCC/data/train/" + person.getName() + "/"
+									+ numberPhotosName + ".jpg")).toPath(),
+							photo.getImage(), java.nio.file.StandardOpenOption.CREATE);
 				}
 				numberPhotosName++;
 			}
 
 		}
-
+		return value;
 	}
 
 }
