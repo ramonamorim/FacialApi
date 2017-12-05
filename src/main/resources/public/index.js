@@ -34,6 +34,7 @@
 			self.load();
 			self.photos = ko.observableArray();
 			self.photo = ko.observable();
+			self.status = ko.observable();
 
 		};
 
@@ -89,6 +90,23 @@
 			App.get('api/recognitionconfig/preparation/');			
 
 		};
+		
+		self.checkStatus = function(){
+			self.selectedPerson({});
+			self.isEditMode(false);
+			console.log(self.status)
+			var success = function(data) {
+				self.status = data[0].codeStatus;
+				console.log(self.status)
+			}
+				App.get('api/recognitionconfig').then(success,self.showError);
+		};
+		
+		self.isProcessing = function() {
+			console.log(self.status)			
+			return self.status  === 1
+		};
+			
 
 		self.cancelEdit = function() {
 			self.selectedPerson({});

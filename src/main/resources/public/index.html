@@ -34,7 +34,7 @@
 				</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#" data-bind="click: startTrain">Atualizar Reconhecimento<span class="sr-only">(atual)</span>
 				</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#" data-bind="click: cancelEdit">Verificar status<span class="sr-only">(atual)</span>
+				<li class="nav-item active"><a class="nav-link" href="#" data-bind="click: checkStatus">Verificar status<span class="sr-only">(atual)</span>
 				</a></li>
 				<li class="nav-item"><a id="logout" class="nav-link" href="#">Sair</a></li>
 			</ul>
@@ -47,7 +47,7 @@
 			<div class="row" data-bind="visible: !isEditMode()">
 				<div class="col-12">
 					<div class="row">
-						<div class="col-12">
+						<div class="col-12">														
 							<h3>
 								Pessoas <a href="#" class="btn btn-link float-right" data-bind="click: addPerson">Adicionar</a>
 							</h3>
@@ -77,6 +77,7 @@
 							</tr>
 						</tbody>
 					</table>
+					<h5 data-bind="text: isProcessing() ? 'Processo de treinamento concluido' : 'Processando reconhecimento...'"></h5>
 				</div>
 			</div>
 
