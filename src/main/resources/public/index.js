@@ -35,6 +35,7 @@
 			self.photos = ko.observableArray();
 			self.photo = ko.observable();
 			self.status = ko.observable();
+			
 
 		};
 
@@ -96,15 +97,17 @@
 			self.isEditMode(false);
 			console.log(self.status)
 			var success = function(data) {
-				self.status = data[0].codeStatus;
-				console.log(self.status)
+				
+				
+				alert(data[0].codeStatus == '1' ? 'Processo do ultimo treinamento executado foi concluido' : 'Processando treinamento...')
 			}
+					
 				App.get('api/recognitionconfig').then(success,self.showError);
 		};
 		
 		self.isProcessing = function() {
-			console.log(self.status)			
-			return self.status  === 1
+			console.log(self.status())			
+			return self.status()  === '1'
 		};
 			
 
