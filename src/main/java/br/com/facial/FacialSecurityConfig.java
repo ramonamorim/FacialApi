@@ -55,7 +55,7 @@ public class FacialSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 	    web.ignoring().antMatchers("/api/notifications").and().ignoring().antMatchers("/api/recognitionconfig").and().ignoring().antMatchers("/api/recognitionconfig/statuscomplete/")
-	    .and().ignoring().antMatchers("/api/recognitionconfig/statusprocessing/");
+	    .and().ignoring().antMatchers("/api/recognitionconfig/statusprocessing/").and().ignoring().antMatchers("/api/model/reg/");
 	}
 
 	@Bean

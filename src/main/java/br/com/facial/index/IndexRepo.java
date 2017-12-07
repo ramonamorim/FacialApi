@@ -1,4 +1,4 @@
-package br.com.index;
+package br.com.facial.index;
 
 import br.com.facial.persistence.BaseRepo;
 

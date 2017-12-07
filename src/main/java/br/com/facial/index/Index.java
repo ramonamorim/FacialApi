@@ -1,4 +1,4 @@
-package br.com.index;
+package br.com.facial.index;
 
 import javax.persistence.Entity;
 
