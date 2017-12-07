@@ -86,9 +86,8 @@
 		self.startTrain = function() {			
 			self.selectedPerson({});
 			self.isEditMode(false);
-
 			console.log('entrou na funcao de iniciar treino')			
-			App.get('api/recognitionconfig/preparation/');			
+			App.get('api/recognitionconfig/preparation/');	
 
 		};
 		
@@ -166,6 +165,21 @@
 			console.log(self.selectedPerson().id())
 			App.post('api/photos', photo).then(success, self.showError);
 		}
+		
+		self.deletePhoto = function(item) {			
+			
+				
+			var success = function() {
+				self.photos.remove(function(photo) {
+			        return photo.id() == item.id();
+			    });				
+			};
+			
+			App.delete('api/photos/' + item.id()).then(success, self.showError);
+			
+			
+
+		};
 
 		self.Uint8ToBase64 = function(u8Arr) {
 			var CHUNK_SIZE = 0x8000; // arbitrary number

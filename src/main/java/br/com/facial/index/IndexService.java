@@ -1,6 +1,7 @@
 package br.com.facial.index;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -33,7 +34,13 @@ public class IndexService extends AbstractService<Index, IndexRepo> {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getIndices(String value) {
-		this.indexRepo.deleteAll();
+		List<Index> indexList = this.indexRepo.findAll();
+		
+		
+		for (Index index : indexList) {
+			this.indexRepo.deleteByNome(index.getNome());
+		}
+		
 		// Map<String, Integer> values = new HashMap<>();
 		// JSONObject json = new JSONObject("{'Astir': 0, 'Billy Burke': 1,
 		// 'Camila': 2, 'Carla': 3, 'Gabriel': 4, 'George Clooney': 5, 'Jared':

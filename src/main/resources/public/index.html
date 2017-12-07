@@ -124,7 +124,7 @@
 					
 					<!-- ko foreach: photos -->
 					<th class="text-center" scope="row">
-						<img data-bind="attr: {'src' : encodedImage }" class="img-thumbnail" alt="Photo"><i class="oi oi-circle-x"></i>
+						<img data-bind="attr: {'src' : encodedImage }" class="img-thumbnail" alt="Photo"><a href="#" class="btn btn-link " data-bind="click: $parent.deletePhoto"> <i class="oi oi-circle-x"> </a></i>
 					</th>
 					<!-- /ko -->
 
