@@ -1,6 +1,7 @@
 package br.com.index;
 
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Component;
@@ -10,8 +11,8 @@ import br.com.facial.persistence.AbstractService;
 @Component
 @Path("index")
 public class IndexService extends AbstractService<Index, IndexRepo> {
-	
-	@Inject 
+
+	@Inject
 	private IndexRepo indexRepo;
 
 	@Override
@@ -19,4 +20,9 @@ public class IndexService extends AbstractService<Index, IndexRepo> {
 		return indexRepo;
 	}
 
+	@GET
+	@Path("list")
+	public String getIndices() {
+		return null;
+	}
 }
