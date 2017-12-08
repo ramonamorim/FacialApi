@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.facial.persistence.AbstractService;
@@ -48,6 +49,29 @@ public class RecognitionConfigService extends AbstractService<RecognitionConfig,
 		String numPersons = "";
 		this.limpaPastas();
 		numPersons = this.prepareDataOnFolder(numPersons);
+		File srcDirB = new File("/Users/ramonamorim/TCC/datacopy/train/Billy Burke/");
+		File srcDirG = new File("/Users/ramonamorim/TCC/datacopy/train/George Clooney");
+		File srcDirJ = new File("/Users/ramonamorim/TCC/datacopy/train/Jared");
+
+		File srcDirB2 = new File("/Users/ramonamorim/TCC/datacopy/validation/Billy Burke");
+		File srcDirG2 = new File("/Users/ramonamorim/TCC/datacopy/validation/George Clooney");
+		File srcDirJ2 = new File("/Users/ramonamorim/TCC/datacopy/validation/Jared");
+
+		File destDirTrainB = new File("/Users/ramonamorim/TCC/data/train/Billy Burke");
+		File destDirTrainG = new File("/Users/ramonamorim/TCC/data/train/George Clooney");
+		File destDirTrainJ = new File("/Users/ramonamorim/TCC/data/train/Jared");
+		File destDirValidationB = new File("/Users/ramonamorim/TCC/data/validation/Billy Burke");
+		File destDirValidationG = new File("/Users/ramonamorim/TCC/data/validation/George Clooney");
+		File destDirValidationJ = new File("/Users/ramonamorim/TCC/data/validation/Jared");
+
+		FileUtils.copyDirectory(srcDirB, destDirTrainB);
+		FileUtils.copyDirectory(srcDirG, destDirTrainG);
+		FileUtils.copyDirectory(srcDirJ, destDirTrainJ);
+
+		FileUtils.copyDirectory(srcDirB2, destDirValidationB);
+		FileUtils.copyDirectory(srcDirG2, destDirValidationG);
+		FileUtils.copyDirectory(srcDirJ2, destDirValidationJ);
+
 		process(numPersons);
 
 		return Response.ok().build();

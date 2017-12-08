@@ -34,20 +34,21 @@ public class IndexService extends AbstractService<Index, IndexRepo> {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getIndices(String value) {
-		List<Index> indexList = this.indexRepo.findAll();
-		
-		
-		for (Index index : indexList) {
-			this.indexRepo.deleteByNome(index.getNome());
-		}
-		
+
+		this.indexRepo.deleteAll();;
+		// List<Index> indexList = this.indexRepo.findAll();
+
+		// for (Index index : indexList) {
+		// this.indexRepo.deleteByNome(index.getNome());
+		// }
+
 		// Map<String, Integer> values = new HashMap<>();
 		// JSONObject json = new JSONObject("{'Astir': 0, 'Billy Burke': 1,
 		// 'Camila': 2, 'Carla': 3, 'Gabriel': 4, 'George Clooney': 5, 'Jared':
 		// 6, 'Jessica': 7, 'Juliane': 8, 'Murilo': 9, 'Ramon': 10, 'Vanessa':
 		// 11}");
 		JSONObject json = new JSONObject(value);
-		Iterator keys = json.keys();
+		Iterator<?> keys = json.keys();
 		while (keys.hasNext()) {
 			String name = (String) keys.next();
 
